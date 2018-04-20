@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="__STATIC__/bootstrap.min.css"></link>
+    <script src="__STATIC__/jquery.js"></script>
+    <script  src="__STATIC__/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <button class="btn bth-success">添加用户页面</button>
+            <a href="/cms/public/index.php/user" class="bth btn-danger">查看用户</a>
+        </div>
+        <div class="panel-body">
+                <form action="/cms/public/index.php/user" method="post">
+                    <div class="form-group">
+                        <label for="user">User</label>
+                        <input type="text" placeholder="请输入用户名" name="name" class="form-control" id="user">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">PassWord</label>
+                        <input type="password" placeholder="请输入密码" name="pwd" class="form-control" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">PHONE</label>
+                        <input type="password" placeholder="请输入手机号" name="phone" class="form-control" id="Phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="zs">注释</label>
+                        <input type="text" placeholder="请输入注释" name="zs" class="form-control" id="zs">
+                    </div>
+                    <div class="form-group">
+
+                        <input type="submit" value="添加用户" class="btn btn-success">
+
+
+                        <input type="reset" value="重置"  class="btn btn-success">
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

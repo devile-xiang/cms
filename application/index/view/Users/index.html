@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="__STATIC__/bootstrap.min.css"></link>
+    <script src="__STATIC__/jquery.js"></script>
+    <script  src="__STATIC__/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button class="btn bth-success">用户展示页面</button>
+                    <a href="/cms/public/index.php/user/create" class="bth btn-danger">添加用户</a>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>PHONE</th>
+                        <th>ZHUSHI</th>
+                        <th>PASSWORD</th>
+                        <th>修改</th>
+                        <th>删除</th>
+                        <th>删除</th>
+
+                        {volist name="data" id="value"}
+                            <tr>
+                                <td>{$value.id}</td>
+                                <td>{$value.name}</td>
+                                <td>{$value.phone}</td>
+                                <td>{$value.zs}</td>
+                                <td>{$value.pwd}</td>
+                                <td><a href="/cms/public/index.php/user/{$value.id}/edit">修改</a></td>
+                                <td>
+                                    <form action="/cms/public/index.php/user/{$value.id}" method="post">
+                                        <input type="hidden" value="delete" name="_method">
+                                        <button>删除</button>
+
+                                    </form>
+                                <td>
+                                        <button onclick="del(this,{$value.id})">ajax删除</button>
+                            </td>
+                            </tr>
+                        {/volist}
+                    </table>
+                </div>
+            </div>
+    </div>
+<script>
+    function del(obj,id) {
+            $.post('{:url("ajax_del")}',{id:id},function (data) {
+                if (data.status==200){
+                    alert(data.info);
+                    $(obj).parent().parent().remove();
+                }else{
+                    alert(data.info);
+                }
+            });
+    }
+</script>
+</body>
+</html>
