@@ -9,6 +9,8 @@
 namespace app\index\controller;
 use think\Controller;
 use think\Db;
+use think\Exception;
+
 class Admin
 {
    public function index(){
@@ -236,6 +238,71 @@ public function delete(){
 
        echo Db::getLastSql();
        dump($code);
+}
+public function shiwu(){
+//       Db::transaction(function (){
+//          Db::table("think_user")->delete(1077);
+//          Db::table("think_user")->delete(1078);
+//       });
+//    Db::startTrans();
+//    try{
+//        //删除数据库id为1
+//        $a=Db::table("think_user")->delete(1);
+//        if (!$a){
+//            throw new \Exception("删除id 1 数据没有成功");
+//        }
+//
+//
+//        //删除数据库id为1075
+//        $b=Db::table("think_user")->delete(1075);
+//        if (!$b){
+//            throw new \Exception("删除id 1 数据没有成功");
+//        }
+//        echo "aaaaa";
+//        Db::commit();
+//    }catch (\Exception $e){
+//            Db::rollback();
+//        echo "bbbbbb";
+//
+//        dump($e->getMessage());
+//    }
+    Db::startTrans();
+    $a=Db::table("think_user")->delete(333);
+    $b=Db::table("think_user")->delete(2222);
+    if ($a && $b){
+        Db::commit();
+    }else{
+        Db::rollback();
+    }
+
+
+}
+public function views(){
+       //视图查询
+//    $data=Db::view("shangping","id,name,fenlei,jiage")
+//        ->view("fl","name tname","fl.id=shangping.fenlei")
+//        ->select();
+
+
+    //注意，视图查询无需调用table和join方法，并且在调用where和order方法的时候只需要使用字段名而不需要加表名。
+
+    //右表为主
+//        $data=Db::view("shangping","id,name,fenlei,jiage")
+//        ->view("fl","name tname","fl.id=shangping.fenlei","RIGHT")
+//        ->select();
+//左表为主
+
+//    $data=Db::view("shangping","id,name,fenlei,jiage")
+//        ->view("fl","name tname","fl.id=shangping.fenlei","LEFT")
+//        ->select();
+
+
+
+
+
+
+    echo Db::getLastSql();
+    dump($data);
 }
 
 }

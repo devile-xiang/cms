@@ -2,12 +2,15 @@
 namespace app\index\controller;
 //use app\index\controller\user;
 use think\config;
+use think\Model;
 use think\Url;
 use think\View;
 use think\Controller;
 use think\Request;
 use app\admin\controller\Admin;
 use think\Db;
+use think\Loader;
+use app\index\model\think_user;
 class Index extends Controller
 {
    public function index(){
@@ -215,5 +218,34 @@ public function data2(){
        echo "使用模型连接数据库";
        $user=new \app\index\model\User();
        dump($user::all());
+}
+public function indexm(){
+       $user=new \app\index\model\think_user();
+       dump($user::get(1079)->toArray());
+}
+public function get1(){
+       //调用静态
+    //引入model位置use app\index\model\think_user;
+  // $res=think_user::get(1079);
+
+    //实例化模型
+//        $think_user=new Think_user;
+//        $res=$think_user::get(1079);
+
+
+    //使用Loader,这个不可用
+    //引入use think\Loader;
+//    $think_user=Loader::model("thin_kuser");
+//    $res=$think_user::get(1079);
+//
+//    dump($res->toArray());
+        //2018/4/24学习不可用
+///     助手函数
+//    $user=Model("thin_kuser");
+//    $res=$user::get(1079);
+//     dump($res->toArray());
+}
+public function getOne(){
+
 }
 }
