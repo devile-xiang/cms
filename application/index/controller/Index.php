@@ -246,6 +246,191 @@ public function get1(){
 //     dump($res->toArray());
 }
 public function getOne(){
+       //查询id为1
+//       $res=think_user::get(1);
+    //默认查找用户名
+//    $res=think_user::get(["name"=>"mr.li"]);
+
+       //使用闭包
+//    $res=think_user::get(function ($query){
+//                $query->where("id",1);
+//    });
+        //find查询
+    $res=think_user::where("id",1)->find();
+
+    dump($res->toArray());
+}
+public function getall(){
+    //查询全部
+//       $res=think_user::all();
+    //查询name="asdsss"
+//        $res=think_user::all(["name"=>"asdsss"]);
+    //闭包
+//    $res=think_user::all(function($query){
+//        $query->where("name","asdsss");
+//    });
+    $res=think_user::select();
+
+
+
+    foreach ($res as $key=>$value){
+        dump($value->toArray());
+    }
+}
+public function getValue(){
+       //查询id为5数据的name
+//       $res=think_user::where("id",5)->value("name");
+    //获取全部name
+    $res=think_user::column("name");
+       dump($res);
+}
+
+//动态查询
+public function dong(){
+       //读取一条name为asdsss，getBy字段名
+       $res=think_user::getByname('asdsss');
+       dump($res->toArray());
 
 }
+public function add(){
+
+    $user=new think_user();
+    //设置属性
+////    $user->name=("wangxiao");
+////    $user->pwd=("123456");
+////    $user->zs=("wobuzhidaoshuosheme");
+////    $user->phone=("123456");
+////
+///
+/// //通过data方法
+//        $user->data([
+//           "name"=>"wangzhengwen",
+//           "pwd"=>"wangjile",
+//           "zs"=>"buxiangshuoshenme",
+//            "phone"=>"123456",
+//        ]);
+//        $user=new think_user([
+//            "name"=>"lijiang",
+//           "pwd"=>"wangjile",
+//           "zs"=>"buxiangshuoshenme",
+//            "phone"=>"123456",
+//        ]);
+//        dump($user->save());
+//        echo $user->id;
+
+        //过滤掉数据库没有的字段，不添加如果数据库没有sex但是post提交上来的的有sex
+   // $user->allowField(true)->save();
+
+
+    $user=new think_user();
+    $list=[
+        ["name"=>"wangzhengwen","pwd"=>"wangjile", "zs"=>"buxiangshuoshenme","phone"=>"123456"],
+        ["name"=>"teliangpu","pwd"=>"wangjile", "zs"=>"buxiangshuoshenme","phone"=>"123456"],
+        ["name"=>"xijingping","pwd"=>"wangjile", "zs"=>"buxiangshuoshenme","phone"=>"123456"],
+        ["name"=>"pujing","pwd"=>"wangjile", "zs"=>"buxiangshuoshenme","phone"=>"123456"],
+    ];
+    $user->saveAll($list,false);
+}
+public function delete(){
+//        $user=think_user::get(1);
+////        dump($user->toArray());
+////        //返回影响行数
+////        dump($user->delete());
+///
+///             删除id为2
+            $user=think_user::destroy(2);
+            //删除id为2，3，4
+//    $user=think_user::destroy([2,3,4]);
+    $user=think_user::destroy(["name"=>"wangxiao"]);
+            dump($user);
+
+    $user::where('id','>',10)->delete();
+
+}
+public function update(){
+//       //设置字段属性更新
+//      $user=think_user::get(3);
+//      $user->name="xiangzong";
+////      echo $user->id;
+//      $user->save();
+//直接数组修改
+//    $user=new think_user();
+//    $res=$user->save([
+//        "name"=>"xinyedasha",
+//        "pwd"=>"xianzaimeiyoumima",
+//        "zs"=>"meiyouzhushi",
+//
+//    ],['id'=>3]);
+//    dump($res);
+//修改数据
+//    $_POST['name']="xiangzong";
+//    $_POST['pwd']="xiangzong";
+//    $_POST['zs']="xiangzong";
+//    $_POST['age']="xiangzong";
+//    $_POST['name1']="xiangzong";
+//
+//    $user=new think_user();
+//    //allowField(['name','pwd','zs']),过滤掉除name,pwd,zs，以外的的字段
+//    $res=$user->allowField(['name','pwd','zs'])->save($_POST,['id'=>3]);
+    //同时更新多条数据
+//    $data=[
+//        ['id'=>3,'name'=>'jiangzong','pwd'=>'jiangzong','zs'=>'jiangzong'],
+//        ['id'=>4,'name'=>'wangzong','pwd'=>'wangzong','zs'=>'wangzong'],
+//    ];
+//    $user=new think_user();
+//    $res=$user->saveAll($data);
+//    echo think_user::getlastsql();
+    //修改大于10的注释
+//    $user=new think_user();
+//
+//    $res=$user->where("id",'>','10')->update(['zs'=>"zhegshidayu10dezhushi"]);
+
+    //闭包更新,修改大于10的名字为aoteman
+    $user=new think_user();
+    $user->save(['name'=>'aoteman'],function($query){
+        $query->where("id",'>','10');
+    });
+
+
+}
+//数据统计
+public function tongji(){
+//       $tot=think_user::count();
+//       dump($tot);
+//       //统计所有name等于asdsss的数据
+//       $tot=think_user::where("name","=","asdsss")->count();
+//       dump($tot);
+    //最大值
+    $max=think_user::max('id');
+    dump($max);
+    //最小值
+    $min=think_user::min('id');
+    dump($min);
+    //平均值
+    $avg=think_user::avg('id');
+    dump($avg);
+    //总和
+    $sum=think_user::sum('id');
+    dump($sum);
+
+}
+public function getSex(){
+       //获取id为3的数据
+    $user=think_user::get(3);
+    dump($user->toArray());
+}
+public function setpwd(){
+    //修改ID为3的密码：
+    $user=new think_user();
+    $res=$user->save(['pwd'=>"123456"],["id"=>3]);
+    dump($res);
+
+}
+    public function auto(){
+        $user=new think_user();
+        $res=$user->save(['name'=>'xiangzong123456','pwd'=>'xiangzong232323']);
+
+        echo md5('xiangzong232323');
+        dump($res);
+    }
 }

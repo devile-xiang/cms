@@ -12,10 +12,28 @@ use think\Model;
 
 class think_user extends Model
 {
-
-
-    protected $table="think_user";
-
+//    public function getidAttr($val){
+//        switch ($val){
+//            case '3':
+//                return "你是3好id";
+//                break;
+//            case '4':
+//                return "你是4好id";
+//                break;
+//            case '5':
+//                return "你是5好id";
+//                break;
+//        }
+//    }
+//    public function setPwdAttr($val){
+//    return md5($val);
+//}
+        public function setNameattt($val){
+                return strtoupper($val);
+        }
+        public function setPwdAttr($val){
+            return md5($val);
+        }
 
 
 }
