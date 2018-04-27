@@ -9,9 +9,33 @@
 namespace app\index\model;
 //导入系统的数据模型
 use think\Model;
+use traits\model\SoftDelete;
 
 class think_user extends Model
 {
+use SoftDelete;
+
+
+
+    //无论更新操作还是修改数据丢回皂搓
+//    protected $auto=['time','state'];
+    protected $auto=[];
+    protected $insert=['create_time'];
+    protected $update=['update_time'];
+
+        //书写自动完成
+    protected function setTimeAttr(){
+        return time();
+    }
+    protected function setStateAttr(){
+        return 1;
+    }
+    protected function setCreateTimeAttr(){
+        return time();
+    }
+    protected function setUpdateTimeAttr(){
+        return time();
+    }
 //    public function getidAttr($val){
 //        switch ($val){
 //            case '3':
@@ -28,12 +52,12 @@ class think_user extends Model
 //    public function setPwdAttr($val){
 //    return md5($val);
 //}
-        public function setNameattt($val){
-                return strtoupper($val);
-        }
-        public function setPwdAttr($val){
-            return md5($val);
-        }
+//        public function setNameattt($val){
+//                return strtoupper($val);
+//        }
+//        public function setPwdAttr($val){
+//            return md5($val);
+//        }
 
 
 }
